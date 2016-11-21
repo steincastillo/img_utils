@@ -54,5 +54,6 @@ else:                   #color image
     plt.title(args["image"])
     plt.show()
     
-cv.waitKey(0)
+key = cv.waitKey(0) &0xFF
 cv.destroyAllWindows()
+
