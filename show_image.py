@@ -55,3 +55,4 @@ else:                   #color image
     plt.show()
     
 cv.waitKey(0)
+cv.destroyAllWindows()
