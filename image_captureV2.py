@@ -8,13 +8,18 @@ Created on Mon Oct 10 15:26:14 2016
 #import numpy as np
 import datetime
 import cv2
+import argparse
+import numpy as np
 
+ap = argparse.ArgumentParser(description="Display video feed on the screen")
+ap.add_argument("-f", "--flip", required=False, help ="Flip the video feed")
+args = vars(ap.parse_args())
 
 print("\n")
 print("**************************************")
 print("*          Image Capture             *")
 print("*                                    *")
-print("*           Version: 1.0             *")
+print("*           Version: 1.2             *")
 print("**************************************")
 print("\n")
 
@@ -31,16 +36,24 @@ camera.set(4, 768)
 #set camera FPS
 camera.set(5, 30)
 
+#create window to display the video feed
+cv2.namedWindow("Frame", cv2.WINDOW_NORMAL)
+
 while True:
     ret, frame = camera.read()
     
     #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     
-    cv2.imshow("Frame", frame)
+    #should the image be mirrowed?
+    if args["flip"]:
+        mirror = np.fliplr(frame).copy()
+        cv2.imshow("Frame", mirror)
+    else:
+        cv2.imshow("Frame", frame)
     
     key = cv2.waitKey(1) & 0xFF
     
-    if key  == ord("q"):
+    if key  == ord("q") or key == ord("Q"):
         print ("Exiting...")
         break
     
@@ -55,4 +68,4 @@ while True:
         print("Captured!")
     
 camera.release()
-cv.destroyAllWindows()
+cv2.destroyAllWindows()
