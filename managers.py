@@ -18,7 +18,7 @@ class CaptureManager(object):
         self._videoWriter = None
 
         self._startTime = None
-        self._framesElapsed = long(0)
+        self._framesElapsed = int(0)
         self._fpsEstimate = None
 
     @property
@@ -48,7 +48,8 @@ class CaptureManager(object):
     def enterFrame(self):
         """Capture the next frame, if anz"""
         #but first, check that any previous frame was exited.
-        assert not self._enteredFrame, \‘previous enterFrame() had no matching exitFrame‘
+        assert not self._enteredFrame, \
+            'Previous enterFrame() had no matching exitFrame()'
         if self.capture is not None:
             self._enteredFrame = self.capture.grab()
 
@@ -68,7 +69,7 @@ class CaptureManager(object):
             self._fpsEstimate = self._framesElapsed / timeElapsed
         self._framesElapsed +=1
 
-        #Draw the window, if ana,
+        #Draw the window, if any,
         if self.previewWindowManager is not None:
             if self.shouldMirrorPreview:
                 mirroedFrame = np.fliplr(self._frame).copy()
@@ -79,4 +80,75 @@ class CaptureManager(object):
         #Write to the image file, if any.
         if self.isWritingImage:
             cv2.imwrite(self._imageFilename, self._frame)
-            
+            self._imageFilename = None
+
+        # Write to the video file, if any.
+        self._writeVideoFrame()
+        # Release the frame.
+        self._frame = None
+        self._enteredFrame = False
+
+    def writeImage(self, filename):
+        """Write the next exited frame to and image file."""
+        self._imageFilename = filename
+
+        def startWritingVideo(self, filename, encoding=cv2.VideoWriter_fourcc("I", "4", "2", "0")):
+            """ Start writing exited frames to a video file"""
+            self._videoFilename = filename
+            self._videoEncoding = encoding
+
+        def stopWritingVideo (self):
+            """Stop writing exited frames to a video file"""
+            self._videoFilename = None
+            self._videoEncoding = None
+            self._videoWriter = None
+
+    def _writeVideoFrame(self):
+        if not self.isWritingVideo:
+            return
+
+        if self._videoWriter is note:
+            fps = self.capture.get(cv2.CAP_PROP_FPS)
+            if fps == 0.0:
+                #the captures FPS is unknow so use an estimate.
+                if self._framesElapsed < 20:
+                    #Wait until more frame elapse so that the
+                    #estimate is more stable
+                    return
+                else:
+                    fps = self._fpsEstimate
+        size = (int(self._capture.get(cv2.CAP_PROP_FRAME_WIIDTH)), 
+            int( self._capture.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+        self._videoWriter = cv2.VideoWriter(self._videoFilename, self._videoEncoding, fps, size)
+
+        #self._videoWriter.write(self._frame)
+
+class WindowManager(object):
+    def __init__(self, windowName, keypressCallback = None):
+        self.keypressCallback = keypressCallback
+        self._windowName = windowName
+        self._isWindowCreated = False
+
+        @property
+        def isWindowCreated(self):
+            return self._isWindowCreated
+
+        def createWindow(self):
+            cv2.namedWindow(self._windowName)
+            self._isWindowCreated = True
+
+        def show(self, frame):
+            cv2.imshow(self,_windowName, frame)
+
+        def destroyWindow(self):
+            cv2.destroyWindow(self._windowName)
+            self._isWindowCreated = False
+
+        def processEvents(self):
+            keycode = cv2.waitKey(1)
+            if self.keypressCallback is not None and keycode != -1:
+                # Discard any non-ASCII info encoded by GTK.
+                keycode &= 0xFF
+                self.keypressCallback(keycode)
+
+
