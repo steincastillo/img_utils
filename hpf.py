@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Dec 4 10:24:18 2016
+
+@author: Stein
+"""
 
 import cv2
 import numpy as np 
