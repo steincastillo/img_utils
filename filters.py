@@ -23,46 +23,47 @@ def strokeEdges(src, dst, blurKsize=7, edgeKsize=5):
 		channel[:] = channel * normalizedinverseAlpha
 	cv2.merge(channels, dst)
 
-	class VConvolutionFilter(object):
-		"""A filter that applies a convolution to V. """
-		def __init__(self, kernel):
-			self._kernel = kernel
 
-		def apply(self, src, dst):
-			"""Applz the filter with BGR or gray source/destination"""
-			cv2.filter2d(src, -1, self._kernel, dst)
+class VConvolutionFilter(object):
+	"""A filter that applies a convolution to V. """
+	def __init__(self, kernel):
+		self._kernel = kernel
 
-	class SharpenFilter(VConvolutionFilter):
-		"""A sharpen filter with a 1-pixel radius"""
-		def __init__(self):
-			kernel = numpy.array([[-1, -1, -1],
-								[-1, 9, -1],
-								[-1, -1, -1]])
-			VConvolutionFilter.__init__(self, kernel)
+	def apply(self, src, dst):
+		"""Applz the filter with BGR or gray source/destination"""
+		cv2.filter2D(src, -1, self._kernel, dst)
 
-	class FindEdgesFilter(VConvolutionFilter):
-		"""An edge-finding filter with a 1-pixel radius"""
-		def __init__(self):
-			kernel = numpy.array([[-1, -1, -1],
-								[-1, 8, -1],
-								[-1, -1, -1]])
-			VConvolutionFilter.__init__(self, kernel)
+class SharpenFilter(VConvolutionFilter):
+	"""A sharpen filter with a 1-pixel radius"""
+	def __init__(self):
+		kernel = np.array([[-1, -1, -1],
+							[-1, 9, -1],
+							[-1, -1, -1]])
+		VConvolutionFilter.__init__(self, kernel)
 
-	class BlurFilter(VConvolutionFilter):
-		"""A blur filter with a 2-pixel radius"""
-		def __init__(self):
-			kernel = numpy.array([[0.04, 0.04, 0.04, 0.04, 0.04],
-								[0.04, 0.04, 0.04, 0.04, 0.04],
-								[0.04, 0.04, 0.04, 0.04, 0.04],
-								[0.04, 0.04, 0.04, 0.04, 0.04],
-								[0.04, 0.04, 0.04, 0.04, 0.04]])
-			VConvolutionFilter.__init__(self, kernel)
+class FindEdgesFilter(VConvolutionFilter):
+	"""An edge-finding filter with a 1-pixel radius"""
+	def __init__(self):
+		kernel = np.array([[-1, -1, -1],
+							[-1, 8, -1],
+							[-1, -1, -1]])
+		VConvolutionFilter.__init__(self, kernel)
 
-	class EmbossFilter(VConvolutionFilter):
-		"""An emboss filter with a 1-pixel radius"""
-		def __init__(self):
-			kernel = numpy.array([[-2, -1, 0],
-								[-1, 1, 1],
-								[ 0, 1, 2]])
-			VConvolutionFilter.__init__(self, kernel)
-			
+class BlurFilter(VConvolutionFilter):
+	"""A blur filter with a 2-pixel radius"""
+	def __init__(self):
+		kernel = np.array([[0.04, 0.04, 0.04, 0.04, 0.04],
+							[0.04, 0.04, 0.04, 0.04, 0.04],
+							[0.04, 0.04, 0.04, 0.04, 0.04],
+							[0.04, 0.04, 0.04, 0.04, 0.04],
+							[0.04, 0.04, 0.04, 0.04, 0.04]])
+		VConvolutionFilter.__init__(self, kernel)
+
+class EmbossFilter(VConvolutionFilter):
+	"""An emboss filter with a 1-pixel radius"""
+	def __init__(self):
+		kernel = np.array([[-2, -1, 0],
+							[-1, 1, 1],
+							[ 0, 1, 2]])
+		VConvolutionFilter.__init__(self, kernel)
+

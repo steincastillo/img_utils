@@ -27,8 +27,9 @@ class Cameo(object):
             frame = self._captureManager.frame
             
             # TODO: Filter the frame (Chapter 3).
-            filters.strokeEdges(frame, frame)
-            self._EmbossFilter.apply(frame, frame)
+            #filters.bnw(frame, frame)
+            #filters.strokeEdges(frame, frame)
+            #self._EmbossFilter.apply(frame, frame)
             #self._curveFilter.apply(frame, frame)
             
             self._captureManager.exitFrame()
