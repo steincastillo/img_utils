@@ -6,4 +6,4 @@ Created on Sun Dec 04 14:48:18 2016
 """
 import cv2
 import numpy as np 
-impodt scipy.interpolate
+import scipy.interpolate
