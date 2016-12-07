@@ -67,3 +67,21 @@ class EmbossFilter(VConvolutionFilter):
 							[ 0, 1, 2]])
 		VConvolutionFilter.__init__(self, kernel)
 
+class SharpenFilter(VConvolutionFilter):
+	"""A sharpening filter with a 1 pixel radius"""
+	def __init__(self):
+		kernel = np.array([[0, -1, 0],
+				[-1,  5, -1],
+				[ 0, -1,  0]])
+		VConvolutionFilter.__init__(self, kernel)
+
+class AverageBlur(VConvolutionFilter):
+	"""Average blur filter, 1 pixel radius"""
+	def __init__(self):
+		kernel = np.array([[1, 1, 1],
+				[1, 1, 1],
+				[1, 1, 1]])
+		VConvolutionFilter.__init__(self, kernel)
+
+
+

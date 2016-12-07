@@ -18,6 +18,8 @@ class Cameo(object):
             cv2.VideoCapture(0), self._windowManager, True)
         #self._curveFilter = filters.BGRPortraCurveFilter()
         self._EmbossFilter = filters.EmbossFilter()
+        self._SharpenFilter = filters.SharpenFilter()
+        self._AverageBlur = filters.AverageBlur()
     
     def run(self):
         """Run the main loop."""
@@ -31,6 +33,8 @@ class Cameo(object):
             #filters.strokeEdges(frame, frame)
             #self._EmbossFilter.apply(frame, frame)
             #self._curveFilter.apply(frame, frame)
+            #self._SharpenFilter.apply(frame, frame)
+            #self._AverageBlur.apply(frame, frame)
             
             self._captureManager.exitFrame()
             self._windowManager.processEvents()
