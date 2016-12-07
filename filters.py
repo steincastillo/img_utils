@@ -44,33 +44,37 @@ class SharpenFilter(VConvolutionFilter):
 class FindEdgesFilter(VConvolutionFilter):
 	"""An edge-finding filter with a 1-pixel radius"""
 	def __init__(self):
-		kernel = np.array([[-1, -1, -1],
-							[-1, 8, -1],
-							[-1, -1, -1]])
+		kernel = np.array(
+				[[-1, -1, -1],
+				[ -1,  8, -1],
+				[ -1, -1, -1]])
 		VConvolutionFilter.__init__(self, kernel)
 
 class BlurFilter(VConvolutionFilter):
 	"""A blur filter with a 2-pixel radius"""
 	def __init__(self):
-		kernel = np.array([[0.04, 0.04, 0.04, 0.04, 0.04],
-							[0.04, 0.04, 0.04, 0.04, 0.04],
-							[0.04, 0.04, 0.04, 0.04, 0.04],
-							[0.04, 0.04, 0.04, 0.04, 0.04],
-							[0.04, 0.04, 0.04, 0.04, 0.04]])
+		kernel = np.array(
+				[[0.04, 0.04, 0.04, 0.04, 0.04],
+				[0.04, 0.04, 0.04, 0.04, 0.04],
+				[0.04, 0.04, 0.04, 0.04, 0.04],
+				[0.04, 0.04, 0.04, 0.04, 0.04],
+				[0.04, 0.04, 0.04, 0.04, 0.04]])
 		VConvolutionFilter.__init__(self, kernel)
 
 class EmbossFilter(VConvolutionFilter):
 	"""An emboss filter with a 1-pixel radius"""
 	def __init__(self):
-		kernel = np.array([[-2, -1, 0],
-							[-1, 1, 1],
-							[ 0, 1, 2]])
+		kernel = np.array(
+				[[-2, -1, 0],
+				[ -1, 1, 1],
+				[  0, 1, 2]])
 		VConvolutionFilter.__init__(self, kernel)
 
 class SharpenFilter(VConvolutionFilter):
 	"""A sharpening filter with a 1 pixel radius"""
 	def __init__(self):
-		kernel = np.array([[0, -1, 0],
+		kernel = np.array(
+				[[0, -1, 0],
 				[-1,  5, -1],
 				[ 0, -1,  0]])
 		VConvolutionFilter.__init__(self, kernel)
@@ -78,7 +82,8 @@ class SharpenFilter(VConvolutionFilter):
 class AverageBlur(VConvolutionFilter):
 	"""Average blur filter, 1 pixel radius"""
 	def __init__(self):
-		kernel = np.array([[1, 1, 1],
+		kernel = np.array(
+				[[1, 1, 1],
 				[1, 1, 1],
 				[1, 1, 1]])
 		VConvolutionFilter.__init__(self, kernel)
