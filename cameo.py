@@ -3,6 +3,9 @@
 Created on Sun Dec 04 14:48:18 2016
 
 @author: Stein
+
+usage:
+python cameo.py
 """
 
 import cv2
@@ -20,6 +23,7 @@ class Cameo(object):
         self._EmbossFilter = filters.EmbossFilter()
         self._SharpenFilter = filters.SharpenFilter()
         self._AverageBlur = filters.AverageBlur()
+        self._FindEdgesFilger = filters.FindEdgesFilter()
     
     def run(self):
         """Run the main loop."""
@@ -35,6 +39,7 @@ class Cameo(object):
             #self._curveFilter.apply(frame, frame)
             #self._SharpenFilter.apply(frame, frame)
             #self._AverageBlur.apply(frame, frame)
+            self._FindEdgesFilger.apply(frame, frame)
             
             self._captureManager.exitFrame()
             self._windowManager.processEvents()
@@ -59,4 +64,15 @@ class Cameo(object):
             self._windowManager.destroyWindow()
 
 if __name__=="__main__":
+    print("\n")
+    print("**************************************")
+    print("* CAMEO")
+    print("*")
+    print("* Version: 1.0")
+    print("**************************************")
+    print("\n")
+    print ("Press [space] to take a screenshot")
+    print ("Press [tab] to start/stop recording a screencast")
+    print ("Press [esc] to quit")
+
     Cameo().run()
