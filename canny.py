@@ -18,7 +18,7 @@ args = vars(ap.parse_args())
 
 image = cv2.imread(args["image"], 0)
 canny = cv2.Canny(image, 200, 300)
-cv2.imshow("Canny", canny)
+cv2.imshow("Canny", np.hstack([image, canny]))
 
 key = cv2.waitKey(0) &0xFF
 
