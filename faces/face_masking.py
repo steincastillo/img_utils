@@ -10,7 +10,7 @@ import argparse
 import numpy as np
 
 #Initialize the haars cascade 
-faceCascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+faceCascade = cv2.CascadeClassifier("./cascades/haarcascade_frontalface_default.xml")
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -29,7 +29,7 @@ gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 faces = faceCascade.detectMultiScale(gray, 1.3, 5)
 print ("I found {} face(s)".format(len(faces)))
 
-#define a balck mask the size of the original image
+#define a black mask the size of the original image
 mask = np.zeros(image.shape[:2], dtype = "uint8")
 
 #loop throught the faces to apply the mask
