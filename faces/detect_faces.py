@@ -36,7 +36,7 @@ print ("I found {} Head-Shoulder(s)".format(len(top)))
 if len(faces)>0:
 	padding = 10
 	for (x, y, w, h) in faces:
-	    cv2.rectangle(image, (x-padding, y-padding), (x+w+padding , y+w+padding), 255, 2)
+	    cv2.rectangle(image, (x-padding, y-padding), (x+w+padding , y+h+padding), 255, 2)
 
 	for (x,y, w, h) in top:
 		cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
