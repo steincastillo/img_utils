@@ -4,6 +4,7 @@
 # Import the necessary packages
 import argparse
 import cv2
+import os.path
 
 print("\n")
 print("**************************************")
@@ -22,6 +23,10 @@ ap.add_argument("-i", "--image", required = True,
 ap.add_argument("-c", "--color", required = True, type = int,
                 help ="Color map to apply (0-11)")
 args = vars(ap.parse_args())
+
+if not(os.path.isfile(args["image"])):              # Verify if the file exists
+    print ("[Error] File {} does not exist. Please verify\n".format(args["image"]))
+    exit(0)
 
 print ("Applying color map No. {}".format(args["color"]))
 
