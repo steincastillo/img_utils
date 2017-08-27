@@ -3,25 +3,33 @@
 Created on Tue Oct 25 14:48:18 2016
 
 @author: Stein
+
+**************************************
+*            SHOW IMAGE              *
+*                                    *
+*            Version 1.7             *
+**************************************
+
+Usage: python show_image.py --image <imageFile>
 """
 
-# Usage: python show_image.py --image <imageFile>
-
 import argparse
+import os.path
 import cv2 as cv
 from matplotlib import pyplot as plt
 
-print("\n")
-print("**************************************")
-print("*             SHOW IMAGE             *")
-print("*                                    *")
-print("*           Version: 1.7             *")
-print("**************************************")
-print("\n")
+#def nothing(x):
+#    pass
+
+print (__doc__)
 
 ap = argparse.ArgumentParser(description="Display a picture on the screen")
 ap.add_argument("-i", "--image", required=True, help ="Path to the image")
 args = vars(ap.parse_args())
+
+if not(os.path.isfile(args["image"])):              # Verify if the file exists
+    print ("[Error] File {} does not exist. Please verify\n".format(args["image"]))
+    exit(0)
 
 image = cv.imread(args["image"])
 (h, w, c) = image.shape
@@ -41,6 +49,8 @@ print ("* Mean brightness: {}".format(int(means[0])))
 print ("\n")
 print ("Press any key to close")
 cv.namedWindow(str(args["image"]), cv.WINDOW_NORMAL)
+cv.moveWindow(str(args["image"]), 100, 10)
+#cv.createTrackbar("tracker", str(args["image"]), 0, 0, nothing)
 cv.imshow(str(args["image"]), image)
 
 if len(image.shape)<3:  #grayscale image
@@ -57,5 +67,6 @@ else:                   #color image
     plt.show()
     
 key = cv.waitKey(0) &0xFF
+
 cv.destroyAllWindows()
 
