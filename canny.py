@@ -5,15 +5,17 @@ Created on Fri Oct 28 17:43:30 2016
 @author: Stein
 """
 
+# Usage: pyhton canny.py --image <imageFile>
+
 #import libraries
 import numpy as np
 import argparse
 import cv2
     
 #construct the argument parse and parse the arguments
-ap = argparse.ArgumentParser()
+ap = argparse.ArgumentParser(description = "Apply canny filter to an image")
 ap.add_argument("-i", "--image", required = True,
-                help ="path to the dataset of images")
+                help ="Indicate the path to the IMAGE")
 args = vars(ap.parse_args())
 
 image = cv2.imread(args["image"], 0)

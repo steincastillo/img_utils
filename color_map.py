@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-# USAGE
-# python color_map.py --image [image] --color [colormap]
+# USAGE: python color_map.py --image [image] --color [colormap]
 
 # Import the necessary packages
 import argparse
@@ -23,6 +22,8 @@ ap.add_argument("-i", "--image", required = True,
 ap.add_argument("-c", "--color", required = True, type = int,
                 help ="Color map to apply (0-11)")
 args = vars(ap.parse_args())
+
+print ("Applying color map No. {}".format(args["color"]))
 
 # Load the image and convert it to grayscale
 image = cv2.imread(args["image"], cv2.IMREAD_GRAYSCALE)
