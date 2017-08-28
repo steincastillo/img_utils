@@ -8,6 +8,7 @@ Created on Fri Oct 28 17:43:30 2016
 #import libraries
 import numpy as np
 import argparse
+import os.path 
 import glob
 import cv2
 
@@ -29,6 +30,9 @@ ap.add_argument("-i", "--image", required = True,
                 help ="path to the image")
 args = vars(ap.parse_args())
 
+if not(os.path.isfile(args["image"])):              # Verify if the file exists
+    print ("[Error] File {} does not exist. Please verify\n".format(args["image"]))
+    exit(0)
 
 #load the image, convert to grayscale and blur
 image = cv2.imread(args["image"])

@@ -3,6 +3,7 @@
 
 # Import the necessary packages
 import numpy as np
+import os.path 
 import argparse
 import cv2
 
@@ -21,6 +22,10 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required = True,
 	help = "Path to the image")
 args = vars(ap.parse_args())
+
+if not(os.path.isfile(args["image"])):              # Verify if the file exists
+    print ("[Error] File {} does not exist. Please verify\n".format(args["image"]))
+    exit(0)
 
 # Load the image, convert it to grayscale, and blur it slightly
 image = cv2.imread(args["image"])
