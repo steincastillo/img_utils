@@ -45,7 +45,7 @@ image = cv.resize(image, None, fx = 0.5, fy = 0.5, interpolation = cv.INTER_AREA
 
 cv.namedWindow("Original", cv.WINDOW_NORMAL)
 cv.imshow("Original", image)
-cv.resizeWindow("Original", int(width/2), int(height/2))
+#cv.resizeWindow("Original", int(width/2), int(height/2))
 cv.namedWindow("Equalized", cv.WINDOW_NORMAL)
 cv.imshow("Equalized", img_output)
 
