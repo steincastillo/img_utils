@@ -50,4 +50,6 @@ if key == ord("s"):
     savefile = name+"_color"+str(args["color"])+extension
     print ("Saving: ", savefile)
     cv2.imwrite(savefile, im_color)
+else:
+    print ("[MSG] File not saved!")
   

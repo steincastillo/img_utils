@@ -22,7 +22,7 @@ Usage:
     python enhance.py -i <imageFile> -a 2 : only adjust contrast
 
 Examples:
-    python enhance.py -i <imageFile> -a 0.5 -b 120 : X-ray effect
+    python enhance.py -i <imageFile> -a 0.5 -g 120 : X-ray effect
     
 """
 
@@ -82,6 +82,7 @@ result = cv.addWeighted(image, alpha, np.zeros(image.shape, image.dtype), beta, 
     
 #result = cv.filter2D(image, -1, kernel)
 
+print ("Press [s] to save")
 print ("Press any key to quit")
 
 # Resize and present original image
@@ -95,4 +96,21 @@ cv.namedWindow("Enhanced", cv.WINDOW_NORMAL)
 cv.imshow("Enhanced", result)
 
 key = cv.waitKey(0) &0xFF
+
+# Save the file?
+if key == ord("s"):
+    # Get new file name
+    name = args["image"].split(".")
+    filename = input ("File name: ")
+    savefile = filename + "." + name[1]
+    # Check that the file does not exist
+    if (os.path.isfile(savefile)):              
+        print ("[ERROR] File {} already exist. Please verify".format(savefile))
+        print ("[MSG] File not saved!")
+        exit(0)
+    print ("Saving: ", savefile)
+    cv.imwrite(savefile, result)
+else:
+    print ("[MSG] File not saved!")
+    
 cv.destroyAllWindows()
