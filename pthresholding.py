@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Aug 28 22:43:39 2017
+
+@author: Stein
+"""
 
 # Import libraries
 import cv2 as cv
@@ -5,10 +12,12 @@ import numpy as np
 import os.path
 import argparse
 
+# Define functions
 def nothing(x):     # Dummy function for createTrackbar call
     pass
 
-ap = argparse.ArgumentParser(description="Find image contours")
+# Main loop
+ap = argparse.ArgumentParser(description="Variable Thresholding")
 ap.add_argument("-i", "--image", required=True, help ="Path to the image")
 args = vars(ap.parse_args())
 
@@ -17,30 +26,29 @@ if not(os.path.isfile(args["image"])):              # Verify if the file exists
     exit(0)
 
 image_orginal = cv.imread(args["image"])
-image = cv.cvtColor(image_orginal, cv.COLOR_BGR2GRAY)
-blurred = cv.GaussianBlur(image, (5, 5), 0)
-blurred1 = blurred
-
+image_gray = cv.cvtColor(image_orginal, cv.COLOR_BGR2GRAY)
+image_blurred = cv.GaussianBlur(image_gray, (5, 5), 0)
+image_blurred1 = image_blurred
 
 # Create the image window
 cv.namedWindow("image")
 
 # Create trackbar
-cv.createTrackbar("THR", "image", 3, 255, nothing)
+cv.createTrackbar("Threshold", "image", 3, 255, nothing)
 th = 3
 lth = 3
 
 while True:
-    cv.imshow("image", blurred)
+    cv.imshow("image", image_blurred)
     k = cv.waitKey(1) & 0xFF
     if k == 27:     # press <ESC> to quit
         break
 
-    th = cv.getTrackbarPos("THR", "image")
+    th = cv.getTrackbarPos("Threshold", "image")
     if th!=lth:
         lth = th
-        print (th)
-        (t, blurred) = cv.threshold(blurred1, th, 255, cv.THRESH_BINARY)
+        print ("Thresholding level: {}".format(th))
+        (t, image_blurred) = cv.threshold(image_blurred1, th, 255, cv.THRESH_BINARY)
 
 
 cv.destroyAllWindows()

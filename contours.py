@@ -44,8 +44,9 @@ image = cv.cvtColor(image_original, cv.COLOR_BGR2GRAY)
 
 
 img_filt = cv.medianBlur(image, 5)
-img_th = auto_canny(img_filt)
-#img_th = cv.adaptiveThreshold(img_filt,255,cv.ADAPTIVE_THRESH_GAUSSIAN_C,cv.THRESH_BINARY,11,2)
+#img_th = auto_canny(img_filt)
+img_th = cv.threshold(img_filt, 60, 255, cv.THRESH_BINARY)[1]
+#img_th = cv.adaptiveThreshold(img_filt,255,cv.ADAPTIVE_THRESH_GAUSSIAN_C,cv.THRESH_BINARY,11,3)
 im2, contours, hierarchy = cv.findContours(img_th, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE)
 
 cv.namedWindow(str(args["image"]), cv.WINDOW_NORMAL)
