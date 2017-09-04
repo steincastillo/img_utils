@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """
+**************************************
 Created on Tue Oct 25 14:48:18 2016
+Edited on 9/4/2017 1:07:16 PM
 @author: Stein
 
 **************************************
@@ -11,13 +13,13 @@ Created on Tue Oct 25 14:48:18 2016
 
 Usage:  python show_image.py --image <imageFile>
         python show_image.py -i <imageFile>
+***************************************
 """
 
 # Import libraries
 import argparse
 import os.path
 import cv2 as cv
-from matplotlib import pyplot as plt
 
 # Print routine header
 print (__doc__)
@@ -29,7 +31,7 @@ args = vars(ap.parse_args())
 
 # Verify the file exists
 if not(os.path.isfile(args["image"])):              
-    print ("[Error] File {} does not exist. Please verify\n".format(args["image"]))
+    print ("[ERROR] File {} does not exist. Please verify.".format(args["image"]))
     exit(0)
 
 image = cv.imread(args["image"])
