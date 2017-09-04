@@ -55,18 +55,18 @@ cv.namedWindow(str(args["image"]), cv.WINDOW_NORMAL)
 cv.moveWindow(str(args["image"]), 100, 10)
 cv.imshow(str(args["image"]), image)
 
-# if len(image.shape)<3:  #grayscale image
-#     plt.hist(image.ravel(), 256,[0,256])
-#     plt.title("Histogram from grey scale picture")
-#     plt.show()
-# else:                   #color image
-#     color = ("b", "g", "r")
-#     for i,col in enumerate(color):
-#         histr = cv.calcHist([image],[i],None,[256],[0,256])
-#         plt.plot(histr, color = col)
-#         plt.xlim([0,256])
-#     plt.title(args["image"])
-#     plt.show()
+if len(image.shape)<3:  #grayscale image
+    plt.hist(image.ravel(), 256,[0,256])
+    plt.title("Histogram from grey scale picture")
+    plt.show()
+else:                   #color image
+    color = ("b", "g", "r")
+    for i,col in enumerate(color):
+        histr = cv.calcHist([image],[i],None,[256],[0,256])
+        plt.plot(histr, color = col)
+        plt.xlim([0,256])
+    plt.title(args["image"])
+    plt.show()
     
 key = cv.waitKey(0) &0xFF
 
