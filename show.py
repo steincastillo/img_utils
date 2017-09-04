@@ -26,7 +26,12 @@ print (__doc__)
 
 # Parse the arguments
 ap = argparse.ArgumentParser(description="Display a picture on the screen")
-ap.add_argument("-i", "--image", required=True, help ="Path to the image")
+
+ap.add_argument("-i",
+                "--image",
+                required=True,
+                help ="Path to the image")
+
 args = vars(ap.parse_args())
 
 # Verify the file exists
@@ -73,4 +78,3 @@ cv.imshow(str(args["image"]), image)
 key = cv.waitKey(0) &0xFF
 
 cv.destroyAllWindows()
-
