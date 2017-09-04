@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+*****************************************
 Created on Sun Sep  3 13:02:21 2017
 
 @author: Stein
@@ -8,6 +9,11 @@ Created on Sun Sep  3 13:02:21 2017
 *****************************************
 *       Color Image Equalization        *
 *                 V1.0                  *
+*****************************************
+
+Usage:
+    python coloreq.py -i <imageFile>
+    python coloreq.py --image <imageFile>
 *****************************************
 """
 
@@ -21,13 +27,17 @@ print (__doc__)
 
 # Parse the arguments
 ap = argparse.ArgumentParser(description="Color image equalizer")
-ap.add_argument("-i", "--image", required=True, help ="Path to the image")
+
+ap.add_argument("-i",
+                "--image",
+                required=True,
+                help ="Path to the image")
 
 args = vars(ap.parse_args())
 
 # Verify the file exists
 if not(os.path.isfile(args["image"])):              
-    print ("[ERROR] File {} does not exist. Please verify\n".format(args["image"]))
+    print ("[ERROR] File {} does not exist. Please verify.".format(args["image"]))
     exit(0)
  
 # Open the image
@@ -73,9 +83,9 @@ if key == ord("s"):
     if (os.path.isfile(savefile)):              
         print ("[ERROR] File {} already exist. Please verify".format(savefile))
         print ("[MSG] File not saved!")
-        exit(0)
-    print ("Saving: ", savefile)
-    cv.imwrite(savefile, image)
+    else:
+        print ("Saving: ", savefile)
+        cv.imwrite(savefile, image)
 else:
     print ("[MSG] File not saved!")
     

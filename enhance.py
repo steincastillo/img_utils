@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+*****************************************
 Created on Sat Sep  2 10:20:25 2017
 @author: Stein
 
@@ -23,7 +24,7 @@ Usage:
 
 Examples:
     python enhance.py -i <imageFile> -a 0.5 -g 120 : X-ray effect
-    
+******************************************
 """
 
 # Import libraries
@@ -36,22 +37,37 @@ print (__doc__)
 
 # Parse the arguments
 ap = argparse.ArgumentParser(description="Quick image enahancer")
-ap.add_argument("-i", "--image", required=True, help ="Path to the image")
 
-ap.add_argument("-a", "--alpha", required=False, default = 1.2, type = float,
+ap.add_argument("-i",
+                "--image",
+                required=True, help ="Path to the image")
+
+ap.add_argument("-a",
+                "--alpha",
+                required=False,
+                default = 1.2,
+                type = float,
                 help = "alpha value - Contrast")
 
-ap.add_argument("-b", "--beta", required=False, default = 0, type = float,
+ap.add_argument("-b",
+                "--beta",
+                required=False,
+                default = 0,
+                type = float,
                 help = "beta value - Not used")
 
-ap.add_argument("-g", "--gamma", required = False, default = 0, type = float,
+ap.add_argument("-g",
+                "--gamma",
+                required = False,
+                default = 0,
+                type = float,
                 help = "gamma value - Brightness")
 
 args = vars(ap.parse_args())
 
 # Verify the file exists
 if not(os.path.isfile(args["image"])):              
-    print ("[Error] File {} does not exist. Please verify\n".format(args["image"]))
+    print ("[ERROR] File {} does not exist. Please verify.".format(args["image"]))
     exit(0)
 
 # Open the image file
@@ -107,9 +123,9 @@ if key == ord("s"):
     if (os.path.isfile(savefile)):              
         print ("[ERROR] File {} already exist. Please verify".format(savefile))
         print ("[MSG] File not saved!")
-        exit(0)
-    print ("Saving: ", savefile)
-    cv.imwrite(savefile, result)
+    else:
+        print ("Saving: ", savefile)
+        cv.imwrite(savefile, result)
 else:
     print ("[MSG] File not saved!")
     

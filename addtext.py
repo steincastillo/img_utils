@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+*****************************************
 Created on Sun Sep  3 14:20:44 2017
 @author: Stein
 
@@ -15,7 +16,7 @@ usage:
 
 Color options:
     white, black, red, green, blue
-
+******************************************
 """
 
 # Import libraries
@@ -38,9 +39,15 @@ print (__doc__)
 # Parse the arguments
 ap = argparse.ArgumentParser(description="Add text to an image")
 
-ap.add_argument("-i", "--image", required=True, help ="Path to the image")
+ap.add_argument("-i", 
+                "--image", 
+                required=True, 
+                help ="Path to the image")
 
-ap.add_argument("-c", "--color", required=False, default ="white", 
+ap.add_argument("-c", 
+                "--color", 
+                required=False, 
+                default ="white", 
                 help ="Text color")
 
 args = vars(ap.parse_args())
@@ -60,7 +67,7 @@ else:
 
 # Verify the file exists
 if not(os.path.isfile(args["image"])):              
-    print ("[ERROR] File {} does not exist. Please verify\n".format(args["image"]))
+    print ("[ERROR] File {} does not exist. Please verify.".format(args["image"]))
     exit(0)
 
 # Open the image file
@@ -87,7 +94,7 @@ cv.putText(image, line3, (10, pl3), FONT, 0.5, txtcolor, 1, LINE)
 print ("Press [s] to save")
 print ("Press any key to quit")
 
-# Present original image
+# Present the image
 cv.namedWindow(args["image"], cv.WINDOW_NORMAL)
 cv.imshow(args["image"], image)
 
@@ -103,9 +110,9 @@ if key == ord("s"):
     if (os.path.isfile(savefile)):              
         print ("[ERROR] File {} already exist. Please verify".format(savefile))
         print ("[MSG] File not saved!")
-        exit(0)
-    print ("Saving: ", savefile)
-    cv.imwrite(savefile, image)
+    else:
+        print ("Saving: ", savefile)
+        cv.imwrite(savefile, image)
 else:
     print ("[MSG] File not saved!")
 
