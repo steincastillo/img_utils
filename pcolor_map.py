@@ -6,8 +6,8 @@ Created on 9/8/2017 4:38:02 PM
 @author: Stein
 
 *****************************************
-*           Variable Color Map            *
-*                       V1.0                        *
+*           Variable Color Map          *
+*                       V1.0            *
 *****************************************
 
 usage:
@@ -20,7 +20,6 @@ press <s> to save
 
 # Import libraries
 import cv2 as cv
-import numpy as np
 import os.path
 import argparse
 
@@ -39,9 +38,9 @@ print (__doc__)
 ap = argparse.ArgumentParser(description="Variable Color Map")
 
 ap.add_argument("-i",
-                                "--image", 
-                                required=True, 
-                                help ="Path to the image")
+                "--image", 
+                required=True, 
+                help ="Path to the image")
 
 args = vars(ap.parse_args())
 

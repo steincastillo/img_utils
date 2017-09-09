@@ -2,10 +2,17 @@
 # -*- coding: utf-8 -*-
 """
 Created on Sun Aug 27 22:43:39 2017
+Updated on 
 
 @author: Stein
+
+***********************************
+*       Contours Detection        *
+*              V1.1               *
+***********************************
 """
 
+# Import libraries
 import argparse
 import os.path 
 import numpy as np
