@@ -6,8 +6,8 @@ Created on 9/8/2017 4:38:02 PM
 @author: Stein
 
 *****************************************
-*           Variable Color Map          *
-*                       V1.0            *
+*          Variable Color Map           *
+*                 V1.0                  *
 *****************************************
 
 usage:
@@ -54,8 +54,8 @@ image_gray = cv.cvtColor(image_orginal, cv.COLOR_BGR2GRAY)
 im_color = cv.applyColorMap(image_gray, cm)
 
 # Create the image window
-cv.namedWindow(args["image"])
-cv.namedWindow("Color Map")
+cv.namedWindow(args["image"], cv.WINDOW_NORMAL)
+cv.namedWindow("Color Map", cv.WINDOW_NORMAL)
 
 # Create trackbar
 cv.createTrackbar("Color Map", "Color Map", 0, 11, nothing)
