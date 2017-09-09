@@ -7,7 +7,8 @@ Is also intended to be used as a reference and learning tool for some OPENCV com
 
 Routines can be used individually and most will take the parameter -h or --help to indicate function and usage
 
-###Included routines:  
-1. show.py: Displays an image and image properties. Usage: python show.py -i <imageFile>
-2. image_captureV2: Captures an image using the installed camera. Usage: python image_captureV2.py
+### Included routines:  
+1. **show.py**: Displays an image and image properties. Usage: python show.py -i <imageFile>  
+2. **image_captureV2**: Captures an image using the installed camera. Usage: python image_captureV2.py 
+3. **hpf.py**: Applies a high pass filter to the image with different kernels. Usage: python hpf.py -i <imageFile>
 
