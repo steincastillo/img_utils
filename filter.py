@@ -88,6 +88,19 @@ if action:
     
     key = cv.waitKey(0)
     
+    if key == ord("s"):
+        # Get new file name
+        name = args["image"].split(".")
+        filename = input ("File name: ")
+        savefile = filename + "." + name[1]
+        # Check that the file does not exist
+        if (os.path.isfile(savefile)):              
+            print ("[ERROR] File {} already exist. Please verify".format(savefile))
+            print ("[MSG] File not saved!")
+        else:
+            print ("Saving: ", savefile)
+            cv.imwrite(savefile, img_output)
+    
     cv.destroyAllWindows()
     
     
