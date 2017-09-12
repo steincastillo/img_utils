@@ -20,11 +20,16 @@ print ("press any key to quit")
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", required = True,
-	help = "Path to the image")
+
+ap.add_argument("-i",
+                "--image",
+                required = True,
+                help = "Path to the image")
+
 args = vars(ap.parse_args())
 
-if not(os.path.isfile(args["image"])):              # Verify if the file exists
+# Verify if the file exists
+if not(os.path.isfile(args["image"])):              
     print ("[Error] File {} does not exist. Please verify\n".format(args["image"]))
     exit(0)
 

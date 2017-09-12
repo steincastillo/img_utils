@@ -122,11 +122,11 @@ if key == ord("s"):
     # Check that the file does not exist
     if (os.path.isfile(savefile)):              
         print ("[ERROR] File {} already exist. Please verify".format(savefile))
-        print ("[MSG] File not saved!")
+        print ("[INFO] File not saved!")
     else:
         print ("Saving: ", savefile)
         cv.imwrite(savefile, result)
 else:
-    print ("[MSG] File not saved!")
+    print ("[INFO] File not saved!")
     
 cv.destroyAllWindows()

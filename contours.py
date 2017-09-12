@@ -10,6 +10,10 @@ Updated on
 *       Contours Detection        *
 *              V1.1               *
 ***********************************
+
+Usage:
+    python contours.py -i <imageFile>
+    python contours.py --image <imageFile>
 """
 
 # Import libraries
@@ -37,18 +41,23 @@ def auto_canny(image, sigma=0.33):
     return edged
 
 ap = argparse.ArgumentParser(description="Find image contours")
-ap.add_argument("-i", "--image", required=True, help ="Path to the image")
+
+ap.add_argument("-i",
+                "--image",
+                required=True, 
+                help ="Path to the image")
+
 args = vars(ap.parse_args())
 
-if not(os.path.isfile(args["image"])):              # Verify if the file exists
-    print ("[Error] File {} does not exist. Please verify\n".format(args["image"]))
+# Verify if the file exists
+if not(os.path.isfile(args["image"])):              
+    print ("[ERROR] File {} does not exist. Please verify".format(args["image"]))
     exit(0)
 
 image_original = cv.imread(args["image"])
 image = cv.cvtColor(image_original, cv.COLOR_BGR2GRAY)
 
 # Pre-process image
-
 
 img_filt = cv.medianBlur(image, 5)
 #img_th = auto_canny(img_filt)
@@ -65,5 +74,3 @@ display = cv.imshow("Objects",image_original)
 print ("Number of dectected elements: {}".format(len(contours)))
 wait_time = cv.waitKey(0)
 cv.destroyAllWindows()
-
-#plt.imshow(img_orig)

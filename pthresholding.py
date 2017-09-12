@@ -4,6 +4,16 @@
 Created on Sun Aug 28 22:43:39 2017
 
 @author: Stein
+
+*****************************************
+*    Image Adjustable Thresholding      *
+*                 V1.0                  *
+*****************************************
+
+Usage:
+    python pthresholding.py -i <imageFile>
+    
+press <ESC> to exit
 """
 
 # Import libraries
@@ -12,17 +22,26 @@ import numpy as np
 import os.path
 import argparse
 
+# Print header
+print (__doc__)
+
 # Define functions
 def nothing(x):     # Dummy function for createTrackbar call
     pass
 
 # Main loop
 ap = argparse.ArgumentParser(description="Variable Thresholding")
-ap.add_argument("-i", "--image", required=True, help ="Path to the image")
+
+ap.add_argument("-i",
+                "--image",
+                required=True,
+                help ="Path to the image")
+
 args = vars(ap.parse_args())
 
-if not(os.path.isfile(args["image"])):              # Verify if the file exists
-    print ("[Error] File {} does not exist. Please verify\n".format(args["image"]))
+# Verify if the file exists
+if not(os.path.isfile(args["image"])):              
+    print ("[ERROR] File {} does not exist. Please verify".format(args["image"]))
     exit(0)
 
 image_orginal = cv.imread(args["image"])
@@ -52,4 +71,3 @@ while True:
 
 
 cv.destroyAllWindows()
-

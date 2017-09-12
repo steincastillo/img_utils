@@ -17,6 +17,12 @@ Usage:
 filter options:
     sharpen: Sharpen the image
     gray: Convert to gray scale
+    blur: Apply blur filter with 2 pixel radius
+    emboss: Emboss the image
+    edges: Find edges with 1 pixel radius
+    
+Press <s> to save
+press any key to exit
 *****************************************
 """
 
@@ -46,16 +52,14 @@ args = vars(ap.parse_args())
 
 # Verify if the file exists
 if not(os.path.isfile(args["image"])):              
-    print ("[Error] File {} does not exist. Please verify\n".format(args["image"]))
+    print ("[ERROR] File {} does not exist. Please verify".format(args["image"]))
     exit(0)
     
 # Open the image
 image = cv.imread(args["image"])
 
-# Verify input image is a color image
+# Get image properties
 height, width, channels = image.shape
-#if channels >= 3 :
-#    image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
 
 filter = args["filter"].lower()
 action = False
@@ -66,15 +70,40 @@ if filter == "sharpen":
                        [-1, 5, -1],
                        [0, -1, 0]])
     img_output = cv.filter2D(image, -1, kernel)
-    action = True
- 
-# convert to grayscale
+    action = True 
+# CONVERT TO GRAY SCALE
 elif filter == "gray":
     if channels >= 3 :
         img_output = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
         action = True
     else: 
         print ("[ERROR]: Image is not color. Please verify")
+# BLUR filter with 2 pixel radius
+elif filter == "blur":
+    kernel = np.array(
+				[[0.04, 0.04, 0.04, 0.04, 0.04],
+				[0.04, 0.04, 0.04, 0.04, 0.04],
+				[0.04, 0.04, 0.04, 0.04, 0.04],
+				[0.04, 0.04, 0.04, 0.04, 0.04],
+				[0.04, 0.04, 0.04, 0.04, 0.04]])
+    img_output = cv.filter2D(image, -1, kernel)
+    action = True 
+# EMBOSS
+elif filter == "emboss":
+    kernel = np.array(
+				[[-2, -1, 0],
+				[ -1, 1, 1],
+				[  0, 1, 2]])
+    img_output = cv.filter2D(image, -1, kernel)
+    action = True 
+# FIND EDGES 1 pixel radius
+elif filter == "edges":
+    kernel = np.array(
+				[[-1, -1, -1],
+				[ -1,  8, -1],
+				[ -1, -1, -1]])
+    img_output = cv.filter2D(image, -1, kernel)
+    action = True 
         
 else:
     print ("[ERROR] Filter option invalid. Please verify")
@@ -96,7 +125,7 @@ if action:
         # Check that the file does not exist
         if (os.path.isfile(savefile)):              
             print ("[ERROR] File {} already exist. Please verify".format(savefile))
-            print ("[MSG] File not saved!")
+            print ("[INFO] File not saved!")
         else:
             print ("Saving: ", savefile)
             cv.imwrite(savefile, img_output)

@@ -10,18 +10,26 @@ print("\n")
 print("**************************************")
 print("*             COLOR MAP              *")
 print("*                                    *")
-print("*           Version: 1.0             *")
+print("*           Version: 1.2             *")
 print("**************************************")
 print("\n")
 print ("Press [s] to save the image")
 print ("press any key to quit")
 
 # Construct the argument parser and parse the arguments
-ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", required = True,
-	help = "Path to the image")
-ap.add_argument("-c", "--color", required = True, type = int,
+ap = argparse.ArgumentParser(description = "Color Map")
+
+ap.add_argument("-i",
+                "--image",
+                required = True,
+                help = "Path to the image")
+
+ap.add_argument("-c",
+                "--color",
+                required = True,
+                type = int,
                 help ="Color map to apply (0-11)")
+
 args = vars(ap.parse_args())
 
 if not(os.path.isfile(args["image"])):              # Verify if the file exists
@@ -35,8 +43,7 @@ image = cv2.imread(args["image"], cv2.IMREAD_GRAYSCALE)
 im_color = cv2.applyColorMap(image, args["color"])
 #im_color = cv2.applyColorMap(image, cv2.COLORMAP_JET)
 
-# Show our images -- notice how the constrast of the second
-# image has been stretched
+# Show our images
 cv2.imshow("Color Map", im_color)
 key = cv2.waitKey(0) &0xFF
 
@@ -51,5 +58,5 @@ if key == ord("s"):
     print ("Saving: ", savefile)
     cv2.imwrite(savefile, im_color)
 else:
-    print ("[MSG] File not saved!")
+    print ("[INFO] File not saved!")
   

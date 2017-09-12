@@ -46,7 +46,7 @@ image = cv.imread(args["image"])
 # Verify input image is a color image
 height, width, channels = image.shape
 if channels < 3 :
-    print ("[ERROR] Input file must be a color image. Please verify\n")
+    print ("[ERROR] Input file must be a color image. Please verify")
     exit(0)
 
 # Convert the image to YUV color space
@@ -82,11 +82,11 @@ if key == ord("s"):
     # Check that the file does not exist
     if (os.path.isfile(savefile)):              
         print ("[ERROR] File {} already exist. Please verify".format(savefile))
-        print ("[MSG] File not saved!")
+        print ("[INFO] File not saved!")
     else:
         print ("Saving: ", savefile)
         cv.imwrite(savefile, image)
 else:
-    print ("[MSG] File not saved!")
+    print ("[INFO] File not saved!")
     
 cv.destroyAllWindows()
