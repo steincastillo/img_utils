@@ -13,7 +13,7 @@ Created on Sun Aug 28 22:43:39 2017
 Usage:
     python pthresholding.py -i <imageFile>
     
-press <ESC> to exit
+press <ESC> to exit 
 """
 
 # Import libraries
