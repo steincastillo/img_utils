@@ -21,6 +21,7 @@ import argparse
 import os.path
 import cv2 as cv
 from matplotlib import pyplot as plt
+import imghdr
 
 # Define functions
 def show_image(img):
@@ -40,7 +41,7 @@ def mean_brigh(img):
 
 
 # Main loop
-if __name__=="__main__":
+if __name__== "__main__":
     # Print routine header
     print (__doc__)
 
@@ -60,20 +61,22 @@ if __name__=="__main__":
         exit(0)
 
     image = cv.imread(args["image"])
+    imgFormat = imghdr.what(args["image"])
     (h, w, c) = image.shape
     size = image.size
-    imgtype = image.dtype    
+    imgType = image.dtype    
     means = mean_brigh(image)
 
     # Display image properties
     print ("Image properties:")
     print ("-----------------")
     print ("* File: {}".format(args["image"]))
+    print ("* Format: {}".format(imgFormat))
     print ("* Witdh: {}".format (w))
     print ("* Height: {}".format(h))
     print ("* Channels: {}".format(c))
     print ("* Pixels: {:.1f} M".format(size/1e6))
-    print ("* File type: {}".format(imgtype))
+    print ("* File type: {}".format(imgType))
     print ("* Mean brightness: {}".format(int(means[0])))
     print ("-----------------")
     print ("\n")
