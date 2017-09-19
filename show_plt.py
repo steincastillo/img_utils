@@ -2,7 +2,7 @@
 """
 **************************************
 Created on Tue Oct 25 14:48:18 2016
-Edited on 9/4/2017 1:07:16 PM
+Edited on 9/16/2017 1:07:16 PM
 @author: Stein
 
 **************************************
@@ -20,8 +20,8 @@ Usage:  python show_plt.py --image <imageFile>
 import argparse
 import os.path
 import cv2 as cv
-from matplotlib import pyplot as plt
 import imghdr
+from matplotlib import pyplot as plt
 
 # Define functions
 def show_image(img):
@@ -38,6 +38,10 @@ def mean_brigh(img):
     if c>= 3:
         img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)  # Convert image to grayscale
     return (cv.mean(img))
+
+def img_type(img):
+    import imghdr
+    return (imghdr.what(img))
 
 
 # Main loop
@@ -61,7 +65,8 @@ if __name__== "__main__":
         exit(0)
 
     image = cv.imread(args["image"])
-    imgFormat = imghdr.what(args["image"])
+    imgFormat = img_type(args["image"])
+    img_size = os.path.getsize(args["image"])
     (h, w, c) = image.shape
     size = image.size
     imgType = image.dtype    
@@ -71,12 +76,13 @@ if __name__== "__main__":
     print ("Image properties:")
     print ("-----------------")
     print ("* File: {}".format(args["image"]))
-    print ("* Format: {}".format(imgFormat))
+    print ("* File type: {}".format(imgFormat))
     print ("* Witdh: {}".format (w))
     print ("* Height: {}".format(h))
     print ("* Channels: {}".format(c))
     print ("* Pixels: {:.1f} M".format(size/1e6))
-    print ("* File type: {}".format(imgType))
+    print ("* File size: {:.1f}".format(img_size))
+    print ("* Data type: {}".format(imgType))
     print ("* Mean brightness: {}".format(int(means[0])))
     print ("-----------------")
     print ("\n")

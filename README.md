@@ -15,4 +15,5 @@ Routines can be used individually and most will take the parameter -h or --help 
 5. **coloreq.py**: Equalizes the histogram of a color image. Usage: python coloreq.py -i [imageFile]
 6. **addtext.py**: Adds up to 3 text lines to an image. Usage: python addtext.py - i [imageFile] -c [fontColor]
 7. **color_map.py**: Apply a color map to an image. Usage: pythion color_map.py -i [imageFile} -c [colorMap]
+8. **show_plt.py**: Displazs and image and image properties using matplotlib. Usage: python show_plt.py -i [imageFile]
 

@@ -20,6 +20,7 @@ Usage:  python show_image.py --image <imageFile>
 import argparse
 import os.path
 import cv2 as cv
+import imghdr
 
 # Print routine header
 print (__doc__)
@@ -43,17 +44,19 @@ image = cv.imread(args["image"])
 (h, w, c) = image.shape
 size = image.size
 imgtype = image.dtype
+imgFormat = imghdr.what(args["image"])
 image1 = cv.cvtColor(image, cv.COLOR_BGR2GRAY)  # Convert image to grayscale
 means = cv.mean(image1)
 
 print ("Image properties:")
 print ("-----------------")
 print ("* File: {}".format(args["image"]))
+print ("* File type: {}".format(imgFormat))
 print ("* Witdh: {}".format (w))
 print ("* Height: {}".format(h))
 print ("* Channels: {}".format(c))
 print ("* Pixels: {:.2f} M".format(size/1e6))
-print ("* File type: {}".format(imgtype))
+print ("* Data type: {}".format(imgtype))
 print ("* Mean brightness: {}".format(int(means[0])))
 print ("-----------------")
 print ("\n")
