@@ -3,11 +3,12 @@
 """
 *****************************************
 Created on Sun Sep  3 14:20:44 2017
-@author: Stein
+Edited on 9/18/2017 2:11:16 PM
+@author: Stein Castillo
 
 *****************************************
 *            Add Text To Image          *
-*                 V1.0                  *
+*                 V1.1                  *
 *****************************************
 
 usage: 
@@ -37,7 +38,7 @@ LINE = cv.LINE_AA
 print (__doc__)
 
 # Parse the arguments
-ap = argparse.ArgumentParser(description="Add text to an image")
+ap = argparse.ArgumentParser(description="Add up to 3 lines of text to an image")
 
 ap.add_argument("-i", 
                 "--image", 
@@ -46,8 +47,9 @@ ap.add_argument("-i",
 
 ap.add_argument("-c", 
                 "--color", 
-                required=False, 
-                default ="white", 
+                required= False, 
+                default = "white",
+                choices = ["white", "blue", "red", "green", "black"],
                 help ="Text color")
 
 args = vars(ap.parse_args())
