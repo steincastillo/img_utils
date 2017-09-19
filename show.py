@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 **************************************
@@ -42,6 +43,7 @@ if not(os.path.isfile(args["image"])):
 
 image = cv.imread(args["image"])
 (h, w, c) = image.shape
+imgSize = os.path.getsize(args["image"])
 size = image.size
 imgtype = image.dtype
 imgFormat = imghdr.what(args["image"])
@@ -56,6 +58,7 @@ print ("* Witdh: {}".format (w))
 print ("* Height: {}".format(h))
 print ("* Channels: {}".format(c))
 print ("* Pixels: {:.2f} M".format(size/1e6))
+print ("* File size: {:.0f}".format(imgSize))
 print ("* Data type: {}".format(imgtype))
 print ("* Mean brightness: {}".format(int(means[0])))
 print ("-----------------")

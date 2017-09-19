@@ -1,23 +1,31 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# USAGE: python color_map.py --image [image] --color [colormap]
+"""
+**************************************
+*             COLOR MAP              *
+*                                    *
+*           Version: 1.4             *
+**************************************
+
+Press [s] to save the image
+press any key to quit
+
+# USAGE: 
+    python color_map.py --image <imageFile> --color <colorMap>
+    python color_map.py -i <imageFile> -c <colorMap>
+***************************************
+"""
 
 # Import the necessary packages
 import argparse
 import cv2
 import os.path
 
-print("\n")
-print("**************************************")
-print("*             COLOR MAP              *")
-print("*                                    *")
-print("*           Version: 1.2             *")
-print("**************************************")
-print("\n")
-print ("Press [s] to save the image")
-print ("press any key to quit")
+# Print routine header
+print (__doc__)
 
 # Construct the argument parser and parse the arguments
-ap = argparse.ArgumentParser(description = "Color Map")
+ap = argparse.ArgumentParser(description = "Apply a color map to an image")
 
 ap.add_argument("-i",
                 "--image",
@@ -26,14 +34,16 @@ ap.add_argument("-i",
 
 ap.add_argument("-c",
                 "--color",
-                required = True,
+                required = False,
+                default = 0, 
                 type = int,
-                help ="Color map to apply (0-11)")
+                choices = range(0, 12),
+                help ="Number of color map to apply (must be between 0 and 11)")
 
 args = vars(ap.parse_args())
 
 if not(os.path.isfile(args["image"])):              # Verify if the file exists
-    print ("[Error] File {} does not exist. Please verify\n".format(args["image"]))
+    print ("[ERROR] File {} does not exist. Please verify".format(args["image"]))
     exit(0)
 
 print ("Applying color map No. {}".format(args["color"]))
@@ -49,14 +59,17 @@ key = cv2.waitKey(0) &0xFF
 
 #save the file?
 if key == ord("s"):
-    #construct new file name
-    filename = args["image"]
-    pos = filename.find(".", len(filename)-5)
-    name=filename[0:pos]
-    extension = filename[pos:]
-    savefile = name+"_color"+str(args["color"])+extension
-    print ("Saving: ", savefile)
-    cv2.imwrite(savefile, im_color)
-else:
-    print ("[INFO] File not saved!")
+    # Get new file name
+    name = args["image"].split(".")
+    filename = input ("File name: ")
+    savefile = filename + "." + name[1]
+    # Check that the file does not exist
+    if (os.path.isfile(savefile)):              
+        print ("[ERROR] File {} already exist. Please verify".format(savefile))
+        print ("[MSG] File not saved!")
+    else:
+        print ("Saving: ", savefile)
+        cv2.imwrite(savefile, im_color)
+
+cv2.destroyAllWindows()
   

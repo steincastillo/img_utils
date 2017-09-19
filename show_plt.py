@@ -1,9 +1,10 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 **************************************
 Created on Tue Oct 25 14:48:18 2016
 Edited on 9/16/2017 1:07:16 PM
-@author: Stein
+@author: Stein Castillo 
 
 **************************************
 *            SHOW IMAGE              *
@@ -50,7 +51,8 @@ if __name__== "__main__":
     print (__doc__)
 
     # Parse the arguments
-    ap = argparse.ArgumentParser(description="Display a picture on the screen")
+    ap = argparse.ArgumentParser(description="Display an image and properties on the screen",
+                                 epilog = "Uses matplotlib to display the image")
 
     ap.add_argument("-i",
                     "--image",
@@ -59,14 +61,14 @@ if __name__== "__main__":
 
     args = vars(ap.parse_args())
 
-    # Verify the file exists
+    # Verify that the file exists
     if not(os.path.isfile(args["image"])):              
         print ("[ERROR] File {} does not exist. Please verify.".format(args["image"]))
         exit(0)
 
     image = cv.imread(args["image"])
     imgFormat = img_type(args["image"])
-    img_size = os.path.getsize(args["image"])
+    imgSize = os.path.getsize(args["image"])
     (h, w, c) = image.shape
     size = image.size
     imgType = image.dtype    
@@ -81,7 +83,7 @@ if __name__== "__main__":
     print ("* Height: {}".format(h))
     print ("* Channels: {}".format(c))
     print ("* Pixels: {:.1f} M".format(size/1e6))
-    print ("* File size: {:.1f}".format(img_size))
+    print ("* File size: {:.0f}".format(imgSize))
     print ("* Data type: {}".format(imgType))
     print ("* Mean brightness: {}".format(int(means[0])))
     print ("-----------------")
