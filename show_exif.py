@@ -3,11 +3,11 @@
 """
 Created on Tue Sep 19 15:15:54 2017
 
-@author: Stein
+@author: Stein Castillo
 
 **************************************
 *          SHOW EXIF DATA            *
-*            Version 1.0             *
+*            Version 1.3             *
 **************************************
 
 Usage:  python show_exif.py --image <imageFile>
@@ -20,7 +20,6 @@ import argparse
 import os.path
 import cv2 as cv
 import pprint
-import imghdr
 from matplotlib import pyplot as plt
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
@@ -91,6 +90,18 @@ def get_lat_lon(exif_data):
 
     return lat, lon
 
+def img_type(img):
+    import imghdr
+    return (imghdr.what(img))
+
+def show_image(img):
+#    _,_,c = img.shape
+#    if c >= 3:    
+#        img = cv.cvtColor(img,cv.COLOR_BGR2RGB)  # Convert the image to RGB format
+    plt.imshow(img)
+    plt.xticks([]), plt.yticks([])
+    plt.show()
+
     
 # Main loop
 if __name__== "__main__":
@@ -111,7 +122,14 @@ if __name__== "__main__":
                     required=False,
                     default = "True",
                     choices = ["True", "False", "true", "false"],
-                    help ="Raw data print?")
+                    help ="EXIF raw data dump?")
+    
+    ap.add_argument("-d",
+                    "--disp",
+                    required=False,
+                    default = "False",
+                    choices = ["True", "False", "true", "false"],
+                    help ="Display the image?")
 
     args = vars(ap.parse_args())
 
@@ -124,7 +142,7 @@ if __name__== "__main__":
     image = Image.open(args["image"])
     
     exif_data = get_exif_data(image)
-    pp = pprint.PrettyPrinter()
+    
     
     # Delete unused attributes from the exif data dictionary
     if (_get_if_exist(exif_data, "MakerNote"))!=None:
@@ -137,12 +155,39 @@ if __name__== "__main__":
     lat, lon = get_lat_lon(exif_data)
     if lat == None: lat = 0
     if lon == None: lon = 0
+    # Get image resolution
+    img_res = _get_if_exist(exif_data,"XResolution")
+    if img_res != None: img_res = img_res[0]
     
+    if exif_data=={}:
+        print ("No EXIF data...")
+        exit(0)
+        
     # Print the EXIF data
     if args["raw"].lower() == "true":
+        pp = pprint.PrettyPrinter()
         pp.pprint(exif_data)
         print ("Coordinates")
         print ("Latitude: {:.3f} degrees".format(lat))
         print ("Longitue: {:.3f} degrees".format(lon))
+    else:
+        print ("Image Properties:")
+        print ("*****************")
+        print ("* File: {}".format(args["image"]))
+        print ("* Date: {}".format(_get_if_exist(exif_data, "DateTime")))
+        print ("* Author: {}".format(_get_if_exist(exif_data, "Artist")))
+        print ("* Height: {} px".format(_get_if_exist(exif_data, "ExifImageHeight")))
+        print ("* Width: {} px".format(_get_if_exist(exif_data, "ExifImageWidth")))
+        print ("* Resolution: {} ppi".format(img_res))
+        print ("* Image type: {}".format(img_type(args["image"])))
+        print ("* ISO speed rating: {}".format(_get_if_exist(exif_data, "ISOSpeedRatings")))
+        print ("* Camera make: {}".format(_get_if_exist(exif_data, "Make")))
+        print ("* Camera model: {}".format(_get_if_exist(exif_data, "Model")))
+        print ("* Latitude: {:.3f} degrees".format(lat))
+        print ("* Longitude: {:.3f} degrees".format(lon))
+        
+    # Display the image?
+    if args["disp"].lower() == "true":
+        show_image(image)
 
     
