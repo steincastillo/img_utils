@@ -24,7 +24,7 @@ from matplotlib import pyplot as plt
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
 
-# Defin functions
+# Define functions
 def get_exif_data(image):
     """Returns a dictionary from the exif data of an PIL Image item. Also converts the GPS Tags"""
     exif_data = {}
@@ -143,11 +143,14 @@ if __name__== "__main__":
     
     exif_data = get_exif_data(image)
     
-    
+    if exif_data=={}:
+        print ("[INFO] image: {} has EXIF data... Exiting.".format(args["image"]))
+        exit(0)
+        
     # Delete unused attributes from the exif data dictionary
     if (_get_if_exist(exif_data, "MakerNote"))!=None:
         del exif_data["MakerNote"]
-    
+        
     if _get_if_exist(exif_data, "PrintImageMatching")!=None:
         del exif_data["PrintImageMatching"]
         
@@ -159,15 +162,13 @@ if __name__== "__main__":
     img_res = _get_if_exist(exif_data,"XResolution")
     if img_res != None: img_res = img_res[0]
     
-    if exif_data=={}:
-        print ("No EXIF data...")
-        exit(0)
-        
     # Print the EXIF data
     if args["raw"].lower() == "true":
+        print ("Image raw EXIF data dump")
+        print ("************************")
         pp = pprint.PrettyPrinter()
         pp.pprint(exif_data)
-        print ("Coordinates")
+        print ("Coordinates:")
         print ("Latitude: {:.3f} degrees".format(lat))
         print ("Longitue: {:.3f} degrees".format(lon))
     else:
