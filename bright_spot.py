@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Created on Tue Nov  1 18:09:05 2016
@@ -5,11 +6,13 @@ Created on Tue Nov  1 18:09:05 2016
 @author: Stein
 """
 
-#this routine finds the brightest and darkest spots in an image
-#a radius has to be provided and must be and odd number
+# this routine finds the brightest and darkest spots in an image
+# a radius has to be provided and must be and odd number
 
+# Import  libraries
 import cv2
 import argparse
+import os.path
 
 print("\n")
 print("**************************************")
@@ -23,11 +26,22 @@ print ("press any key to quit")
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", required = True,
-	help = "Path to the image")
-ap.add_argument("-r", "--radius", type= int,
+ap.add_argument("-i", 
+                "--image", 
+                required = True,
+                help = "Path to the image")
+
+ap.add_argument("-r",
+                "--radius", 
+                type= int,
+                required = True,
                 help = "radius of Gaussian blur; must be odd")
 args = vars(ap.parse_args())
+
+# Verify that the file exists
+if not(os.path.isfile(args["image"])):              
+    print ("[ERROR] File {} does not exist. Please verify.".format(args["image"]))
+    exit(0)
 
 # Load the image, convert it to grayscale
 image = cv2.imread(args["image"])
