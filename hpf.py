@@ -1,23 +1,30 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Created on Sun Dec 4 10:24:18 2016
+@author: Stein Castillo
 
-@author: Stein
+**************************************")
+*         High Pass Filter           *")
+*                                    *")
+*           Version: 1.0             *")
+**************************************")
+
+Usage:
+    python hpf.py --image [imageFile]
+    python hpf.py -i [imageFile]
+
+Press any key to close
 """
 
+# Import libraries
 import cv2
 import numpy as np 
 from scipy import ndimage
 import argparse
+import os.path
 
-print("\n")
-print("**************************************")
-print("*         High Pass Filter           *")
-print("*                                    *")
-print("*           Version: 1.0             *")
-print("**************************************")
-print("\n")
-
+# Define kernels
 kernel_3x3 = np.array([[-1, -1, -1],
 					[-1, 8, -1],
 					[-1, -1, -1]])
@@ -28,9 +35,22 @@ kernel_5x5 =  np.array([[-1, -1, -1, -1, -1],
 						[-1,  1,  2,  1, -1],
 						[-1, -1, -1, -1, -1]])
 
+# Print header
+print (__doc__)
+
 ap = argparse.ArgumentParser(description="Apply high pass filter to an image")
-ap.add_argument("-i", "--image", required=True, help ="Path to the image")
+
+ap.add_argument("-i", 
+                "--image", 
+                required=True, 
+                help ="Path to the image")
+
 args = vars(ap.parse_args())
+
+# Verify if the file exists
+if not(os.path.isfile(args["image"])):              
+    print ("[ERROR] File {} does not exist. Please verify".format(args["image"]))
+    exit(0)
 
 image = cv2.imread(args["image"], 0)
 

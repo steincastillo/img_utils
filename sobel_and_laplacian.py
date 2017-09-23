@@ -1,16 +1,45 @@
-# USAGE
-# python sobel_and_laplacian.py --image [image]
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+**************************************
+*         SOBEL AND LAPLACIAN        *
+*                                    *
+*            Version 1.0             *
+**************************************
+
+Usage:  python sobel_and_laplacian.py --image <imageFile>
+        python sobel_and_laplacian.py -i <imageFile>
+
+USAGE
+    python sobel_and_laplacian.py --image [image]
+    python sobel_and_laplacian.py -i [image]
+
+Press any key to close
+"""
 
 # Import the necessary packages
 import numpy as np
 import argparse
 import cv2
+import os.path
+
+# Print header
+print (__doc__)
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", required = True,
-	help = "Path to the image")
+
+ap.add_argument("-i",
+                 "--image", 
+                 required = True,
+                 help = "Path to the image")   
+
 args = vars(ap.parse_args())
+
+# Verify that the file exists
+if not(os.path.isfile(args["image"])):              
+    print ("[ERROR] File {} does not exist. Please verify.".format(args["image"]))
+    exit(0)
 
 # Load the image, convert it to grayscale, and show it
 image = cv2.imread(args["image"])
