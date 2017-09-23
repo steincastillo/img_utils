@@ -1,8 +1,20 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Created on Fri Oct 28 17:43:30 2016
+@author: Stein Castillo
 
-@author: Stein
+**************************************
+*            Auto Canny              *
+*                                    *
+*           Version: 1.2             *
+**************************************
+
+USAGE
+    python auto_cannyv2.py -i [imageFile]
+    python auto_cannyv2.py --image [imageFile]
+
+Press any key to close
 """
 
 #import libraries
@@ -26,12 +38,19 @@ def auto_canny(image, sigma=0.33):
     
 #construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", required = True,
+ap.add_argument("-i", 
+                "--image", 
+                required = True,
                 help ="path to the image")
+
 args = vars(ap.parse_args())
 
-if not(os.path.isfile(args["image"])):              # Verify if the file exists
-    print ("[Error] File {} does not exist. Please verify\n".format(args["image"]))
+# Print header
+print (__doc__)
+
+# Verify if the file exists
+if not(os.path.isfile(args["image"])):              
+    print ("[ERROR] File {} does not exist. Please verify".format(args["image"]))
     exit(0)
 
 #load the image, convert to grayscale and blur
