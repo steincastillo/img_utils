@@ -1,5 +1,18 @@
-# USAGE
-# python adaptive_thresholding.py --image [image]
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+""" 
+**************************************
+*        ADAPTIVE THRESHOLDING       *
+*                                    *
+*           Version: 1.6             *
+**************************************
+
+USAGE
+    python adaptive_thresholding.py -i [imageFile]
+    python adaptive_thresholding.py --image [imageFile]
+    
+press any key to close
+"""
 
 # Import the necessary packages
 import numpy as np
@@ -7,24 +20,21 @@ import os.path
 import argparse
 import cv2
 
-print("\n")
-print("**************************************")
-print("*        ADAPTIVE THRESHOLDING       *")
-print("*                                    *")
-print("*           Version: 1.5             *")
-print("**************************************")
-print("\n")
-print ("Press [s] to save the image")
-print ("press any key to quit")
+print (__doc__)
 
 # Construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", required = True,
-	help = "Path to the image")
+
+ap.add_argument("-i", 
+                "--image", 
+                required = True,
+                help = "Path to the image")
+
 args = vars(ap.parse_args())
 
-if not(os.path.isfile(args["image"])):              # Verify if the file exists
-    print ("[Error] File {} does not exist. Please verify\n".format(args["image"]))
+# Verify if the file exists
+if not(os.path.isfile(args["image"])):              
+    print ("[ERROR] File {} does not exist. Please verify".format(args["image"]))
     exit(0)
 
 # Load the image, convert it to grayscale, and blur it slightly
