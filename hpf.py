@@ -4,11 +4,11 @@
 Created on Sun Dec 4 10:24:18 2016
 @author: Stein Castillo
 
-**************************************")
-*         High Pass Filter           *")
-*                                    *")
-*           Version: 1.0             *")
-**************************************")
+**************************************
+*         High Pass Filter           *
+*                                    *
+*           Version: 1.0             *
+**************************************
 
 Usage:
     python hpf.py --image [imageFile]
